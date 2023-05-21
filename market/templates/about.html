@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block title %}
+    About Page
+{% endblock title %}
+
+{% block body %}
+
+<p style="text-align:center;"><img class="center" src="{{ url_for('static', filename='assets/special-offer.jpg') }}" alt="..." /></p>
+<p style="text-align:center;"><img class="center" src="{{ url_for('static', filename='assets/about.jpg') }}" alt="..." /></p>
+
+{% endblock body %}

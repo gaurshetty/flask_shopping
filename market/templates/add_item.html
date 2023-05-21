@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block title %}
+    Add Item Page
+{% endblock title %}
+
+{% block body %}
+<br>
+<div class="container">
+  <div class="row">
+  <div class="col-lg-6 col-md-10 mx-auto content">
+    <div class="text-center">
+    <img class="mb-1" src="{{ url_for('static', filename='assets/aaa1.png') }}">
+    <h1 class="h3 mb-3 font-weight-normal">
+        Please add Item here!
+    </h1><br>
+    </div>
+    <form method="POST" class="form-register" style="color:blue" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.name.label() }}
+        {{ form.name(class="form-control", placeholder='Name') }}<br>
+        {{ form.barcode.label() }}
+        {{ form.barcode(class="form-control", placeholder='Barcode') }}<br>
+        {{ form.price.label() }}
+        {{ form.price(class="form-control", placeholder='Price') }}<br>
+        {{ form.description.label() }}
+        {{ form.description(class="form-control", placeholder='Description') }}<br>
+        {{ form.image.label() }}
+        {{ form.image(class="form-control", placeholder='Image') }}<br>
+        {{ form.submit(class="btn btn-block btn-primary") }}<br><br>
+        <br>
+    </form>
+  </div>
+  </div>
+</div>
+
+{% endblock body %}

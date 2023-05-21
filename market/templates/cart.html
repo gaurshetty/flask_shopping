@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+{% block title %}
+Cart Page
+{% endblock title %}
+
+
+{% block body %}
+<div class="row" style="margin-top:20px; margin-left:20px; margin-right:20px">
+  <div class="col">
+    <h4>My Purchased Products</h4>
+    <table class="table table-sm" width="100%">
+        <col style="width:5%">
+        <col style="width:60%">
+        <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:15%">
+		<thead>
+			<tr class="bg-dark text-light">
+				<th scope="col">ID</th>
+				<th scope="col" class="text-truncate">Name</th>
+				<th scope="col">Price</th>
+				<th scope="col">Image</th>
+				<th scope="col">Options</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for item in owned_items %}
+		{% include "includes/item_modal.html" %}
+		{% include "includes/delete_modal.html" %}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{item.name}}</td>
+				<td>${{item.price}}</td>
+				<th>
+					<img src="{{ url_for('static', filename='images/' + item.image) }}" width="50px" height="50px" alt="..." />
+				</th>
+				<td>
+					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#itemModal-{{ item.id }}">More Info</button>
+					<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-{{ item.id }}">Delete</button>
+				</td>
+			</tr>
+		{% endfor %}
+			<tr>
+				<th colspan="2" class="text-right">Subtotal</th>
+				<td class="text-right">${{subtotal}}</td>
+			</tr>
+			<tr>
+				<th colspan="2" class="text-right">Tax (18%)</th>
+				<td class="text-right">${{tax}}</td>
+			</tr>
+			<tr class="bg-dark text-light">
+				<th colspan="2" class="text-right">Total</th>
+				<td class="text-right">${{total}}</td>
+			</tr>
+		</tbody>
+	</table>
+  {% if current_user.items| length > 0 %}
+	  <div>
+		  <a href="{{url_for('clear_cart')}}" class="btn btn-danger text-left">Clear Cart</a>
+		  <a href="{{url_for('invoice')}}" class="btn btn-success float-right">Get Invoice</a>
+	  </div>
+  {% endif %}
+  </div>
+
+
+</div>
+<br>
+{% endblock body %}

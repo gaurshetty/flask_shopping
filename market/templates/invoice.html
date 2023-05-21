@@ -1,0 +1,134 @@
+{% extends "index.html" %}
+{% block title %}
+Cart Page
+{% endblock title %}
+
+
+{% block body %}
+<div class="row" style="margin-top:20px; margin-left:20px; margin-right:20px">
+
+  <div class="col">
+	  <div class="row">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	    <link href="{{ url_for('static', filename='css/invoice.css') }}" rel="stylesheet" />
+		<div class="page-content container">
+			<div class="page-header text-blue-d2">
+				<h1 class="page-title text-secondary-d1">
+					Invoice
+					<small class="page-info">
+						<i class="fa fa-angle-double-right text-80"></i>
+						ID: {{invoice_num}}
+					</small>
+				</h1>
+
+				<div class="page-tools">
+					<div class="action-buttons">
+						<a class="btn bg-white btn-light mx-1px text-95" onclick="window.print()">
+							<i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
+							Print
+						</a>
+						<a class="btn bg-white btn-light mx-1px text-95" href="{{url_for('get_pdf')}}" data-title="PDF" type="submit">
+							<i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
+							Export
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="container px-0">
+				<div class="row mt-4">
+					<div class="col-12 col-lg-12">
+						<div class="row">
+							<div class="col-12">
+								<div class="text-center text-150">
+									<img class="mb-1" src="{{ url_for('static', filename='assets/abc.png') }}" width="35">&nbsp;
+									<span class="text-default-d3">ShopRock.com</span>
+								</div>
+							</div>
+						</div>
+						<!-- .row -->
+						<hr class="row brc-default-l1 mx-n1 mb-4" />
+						<div class="row">
+							<div class="col-sm-6">
+								<div>
+									<span class="text-sm text-grey-m2 align-middle">To:</span>
+									<span class="text-600 text-110 text-dark align-middle">{{current_user.username}}</span>
+								</div>
+								<div class="text-grey-m2">
+									<div class="my-1">
+										Madhuvanti Society, Nanded City,
+									</div>
+									<div class="my-1">
+										MH State, India
+									</div>
+									<div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">+91-9028181003</b></div>
+								</div>
+							</div>
+							<!-- /.col -->
+
+							<div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+								<hr class="d-sm-none" />
+								<div class="text-grey-m2">
+									<div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+										Invoice
+									</div>
+									<div class="my-2"><i class="fa fa-circle text-dark-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID: </span>{{invoice_num}}</div>
+									<div class="my-2"><i class="fa fa-circle text-dark-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:&ensp;</span>{{date.strftime('%b %d, %Y %I:%M %p')}}</div>
+									<div class="my-2"><i class="fa fa-circle text-dark-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-warning badge-pill px-25">Unpaid</span></div>
+								</div>
+							</div>
+							<!-- /.col -->
+						</div>
+						<table class="table">
+						  <thead class="thead-dark">
+							<tr>
+							  <th scope="col">#</th>
+							  <th scope="col">Product</th>
+							  <th scope="col">Quantity</th>
+							  <th scope="col">@Price</th>
+							  <th scope="col">Amount</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  {% for item in owned_items %}
+							<tr>
+							  <th scope="row">{{loop.index}}</th>
+							  <td>{{item.name}}</td>
+							  <td class="text-center">1</td>
+							  <td class="text-right">${{item.price}}</td>
+							  <td class="text-right">${{item.price}}</td>
+							</tr>
+						  {% endfor %}
+						  	<tr>
+								<th colspan="4" class="text-right">Subtotal</th>
+								<td class="text-right">${{subtotal}}</td>
+							</tr>
+						  	<tr>
+								<th colspan="4" class="text-right">Tax (18%)</th>
+								<td class="text-right">${{tax}}</td>
+							</tr>
+						  	<tr>
+								<th colspan="4" class="text-right">Total</th>
+								<td class="text-right">${{total}}</td>
+							</tr>
+						  </tbody>
+						</table>
+						<hr />
+						<div>
+							<span class="text-secondary-d1 text-105">Thank you for your business</span>
+							<a href="{{url_for('payment')}}" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">Pay Now</a>
+							<br><br>
+
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+  </div>
+
+
+</div>
+<br>
+{% endblock body %}

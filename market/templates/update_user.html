@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block title %}
+    Update User Page
+{% endblock title %}
+
+{% block body %}
+<br>
+<div class="container">
+  <div class="row">
+  <div class="col-lg-6 col-md-10 mx-auto content">
+    <div class="text-center">
+    <img class="mb-1" src="{{ url_for('static', filename='assets/aaa1.png') }}">
+    <h1 class="h3 mb-3 font-weight-normal">
+        Please update user here!
+    </h1><br>
+    </div>
+    <form method="POST" class="form-register" style="color:blue" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.username.label() }}
+        {{ form.username(class="form-control", placeholder='User Name') }}<br>
+        {{ form.email.label() }}
+        {{ form.email(class="form-control", placeholder='Email Address') }}<br>
+        {{ form.budget.label() }}
+        {{ form.budget(class="form-control", placeholder='Enter Budget') }}<br>
+        {{ form.image.label() }}
+        {{ form.image(class="form-control", placeholder='Image') }}<br>
+        {{ form.submit(class="btn btn-block btn-primary") }}<br><br>
+        <br>
+    </form>
+  </div>
+  </div>
+</div>
+
+{% endblock body %}

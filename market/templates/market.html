@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+{% block title %}
+market Page
+{% endblock title %}
+
+
+{% block body %}
+<div class="row" style="margin-top:20px; margin-left:20px; margin-right:20px">
+  <div class="col-8">
+      <h4>Available Items on the Market</h4>
+      <p>Click on one of the items to start buying!</p>
+    <table class="table table-hover table-dark" width="100%">
+	<col style="width:5%">
+	<col style="width:45%">
+	<col style="width:20%">
+	<col style="width:10%">
+	<col style="width:20%">
+	<thead>
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col" class="text-truncate">Name</th>
+			<th scope="col">Barcode</th>
+			<th scope="col">Price</th>
+			<th scope="col">Options</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for item in items %}
+	{% include "includes/item_modal.html" %}
+	{% include "includes/purchase_modal.html" %}
+		<tr>
+			<td>{{item.id}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.barcode}}</td>
+			<td>{{item.price}}$</td>
+			<td>
+				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#itemModal-{{ item.id }}">More Info</button>
+				<button class="btn btn-outline btn-success btn-sm" data-toggle="modal" data-target="#purchaseModal-{{ item.id }}">Buy</button>
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+  </div>
+
+  <div class="col-4">
+	  <div class="align-items-center">
+		<a class="btn btn-outline-dark" style="color:lawngreen"><strong>
+			Cash in Wallet : &ensp;
+			<span class="bi bi-cash-coin"></span>
+			{{ current_user.pretty_budget }}</strong>
+		</a>
+	  </div><br>
+    <h4>Owned Items</h4>
+    <p>Click on one of the items to start selling!</p>
+	  <div class="row">
+		  {% for item in owned_items %}
+		  {% include "includes/sell_modal.html" %}
+		  <div class="col-md-6">
+			  <div style="margin-bottom:5px" class="card text-center bg-dark">
+				  <div class="card-body text-white">
+					  <h5 class="card-title text-truncate">{{item.name}}</h5>
+					  <button type="button" class="btn btn-danger" style="margin-bottom:5px" data-toggle="modal" data-target="#sellModal-{{ item.id }}">
+						  Sell Item
+					  </button>
+					  <p class="card-text">Price: {{item.price}}$</p>
+				  </div>
+			  </div>
+		  </div>
+		  {% endfor %}
+	  </div>
+  </div>
+
+</div>
+<br>
+{% endblock body %}

@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% block title %}
+Login Page
+{% endblock title %}
+
+{% block body %}
+<br>
+<div class="container">
+  <div class="row">
+  <div class="col-lg-6 col-md-10 mx-auto content">
+    <div class="text-center">
+    <img class="mb-1" src="{{ url_for('static', filename='assets/aaa1.png') }}">
+    <h1 class="h3 mb-3 font-weight-normal">
+        Login to your account!
+    </h1><br>
+    </div>
+    <form method="POST" class="form-register" style="color:blue">
+        {{ form.hidden_tag() }}
+        {{ form.username.label() }}
+        {{ form.username(class="form-control", placeholder='User Name') }}<br>
+        {{ form.password.label() }}
+        {{ form.password(class="form-control", placeholder='Enter Password') }}<br>
+        {{ form.submit(class="btn btn-block btn-primary") }}<br><br>
+        <p>Do not have an account then <a style="color:blue" href="{{ url_for('registration') }}">Create Account</a></p>
+        <br>
+    </form>
+  </div>
+  </div>
+</div>
+
+{% endblock body %}

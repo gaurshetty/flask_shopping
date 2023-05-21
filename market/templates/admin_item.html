@@ -1,0 +1,80 @@
+{% extends "index.html" %}
+{% block title %}
+Admin Page
+{% endblock title %}
+
+
+{% block body %}
+<div class="row" style="margin-top:20px; margin-left:20px; margin-right:20px">
+  <div class="col">
+    <h4>Available Items on the Market</h4>
+    <table class="table table-hover table-dark" style="table-layout:fixed">
+        <thead>
+            <tr>
+                <th scope="col">Sr.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Barcode</th>
+                <th scope="col">Price</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        {% include "includes/delete_modal.html" %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.barcode}}</td>
+                <td>${{item.price}}</td>
+                <td class="text-truncate">{{item.description}}$</td>
+                <td>
+                    <img src="{{ url_for('static', filename='images/' + item.image) }}" width="50px" alt="..." />
+                </td>
+                <td>
+                    <a href="{{url_for('admin_update_item', id=item.id)}}" class="btn btn-sm btn-info">Update</a>&ensp;
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-{{ item.id }}">Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+      <br><br><br>
+      <h4>All Users registered</h4>
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Sr.</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col">Budget</th>
+                <th scope="col">Image</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        {% include "includes/delete_user_modal.html" %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.password}}</td>
+                <td>${{user.budget}}</td>
+                <td>
+                    <img src="{{ url_for('static', filename='images/' + user.image) }}" width="50px" alt="..." />
+                </td>
+                <td>
+                    <a href="{{url_for('admin_update_user', id=user.id)}}" class="btn btn-sm btn-info">Update</a>&ensp;
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal-{{ user.id }}">Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+<br>
+{% endblock body %}
